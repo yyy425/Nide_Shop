@@ -131,6 +131,7 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     protected void initData() {
         homePresenterIml = new HomePresenterIml(this);
 
+
         initBanner();
         initChannel();
         initTitle();
@@ -139,11 +140,10 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         initNewgoods();
         initServen();
         initHotgood();
-        initTopic();
         initNine();
+        initTopic();
         initCategory();
-
-
+        
         addAdapter();
         homePresenterIml.getHome();
 
@@ -183,8 +183,8 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         delegateAdapter.addAdapter(gridNewgoods);
         delegateAdapter.addAdapter(sevenAdapter);
         delegateAdapter.addAdapter(hotgoodAdapter);
-        delegateAdapter.addAdapter(topicAdapter);
         delegateAdapter.addAdapter(nineadapter);
+        delegateAdapter.addAdapter(topicAdapter);
 
 
         recycler.setLayoutManager(layoutManager);
