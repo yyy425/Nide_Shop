@@ -79,7 +79,6 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     private void initHotgood() {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         hotGoodsListBeans = new ArrayList<>();
-        linearLayoutHelper.setItemCount(3);
         hotgoodAdapter = new HotgoodAdapter(getActivity(), hotGoodsListBeans, linearLayoutHelper);
     }
 
@@ -160,6 +159,7 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
         singleLayoutHelper.setItemCount(1);
         singleLayoutHelper.setAspectRatio(6);
+        singleLayoutHelper.setBgColor(Color.WHITE);
         singleLayoutHelper.setMarginTop(6);
         String name = "专题精选";
         nineadapter = new TitleAdapter(name, getActivity(), channelBeans, singleLayoutHelper);

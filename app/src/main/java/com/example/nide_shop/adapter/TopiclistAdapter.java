@@ -40,7 +40,7 @@ public class TopiclistAdapter extends RecyclerView.Adapter<TopiclistAdapter.View
         HomeBean.DataBean.TopicListBean topicListBean = topicListBeans.get(position);
         Glide.with(context).load(topicListBean.getItem_pic_url()).into(holder.img);
         holder.title.setText(topicListBean.getTitle());
-        holder.price.setText(topicListBean.getPrice_info());
+        holder.price.setText("￥"+topicListBean.getPrice_info()+"元起");
         holder.subtitle.setText(topicListBean.getSubtitle());
     }
 

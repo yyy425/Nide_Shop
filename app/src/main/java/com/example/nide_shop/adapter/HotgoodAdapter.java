@@ -48,7 +48,7 @@ public class HotgoodAdapter extends DelegateAdapter.Adapter<HotgoodAdapter.ViewH
         Glide.with(context).load(hotGoodsListBean.getList_pic_url()).into(holder.img);
         holder.name.setText(hotGoodsListBean.getName());
         holder.brief.setText(hotGoodsListBean.getGoods_brief());
-        holder.price.setText(hotGoodsListBean.getRetail_price()+"");
+        holder.price.setText("￥"+hotGoodsListBean.getRetail_price()+"");
 
     }
 
