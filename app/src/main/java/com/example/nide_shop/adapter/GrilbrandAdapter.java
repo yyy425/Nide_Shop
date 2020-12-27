@@ -18,7 +18,7 @@ import com.example.nide_shop.bean.HomeBean;
 
 import java.util.List;
 
-public class GrilbrandAdapter extends DelegateAdapter.Adapter<GrilbrandAdapter.ViewHolder> {
+public class GrilbrandAdapter extends DelegateAdapter.Adapter {
     private GridLayoutHelper GridLayoutHelper;
     private List<HomeBean.DataBean.BrandListBean> brandListBeans;
 
@@ -34,19 +34,20 @@ public class GrilbrandAdapter extends DelegateAdapter.Adapter<GrilbrandAdapter.V
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_brand, parent, false);
         ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
+        ViewHolder viewHolder= (ViewHolder) holder;
         HomeBean.DataBean.BrandListBean brandListBean = brandListBeans.get(position);
-        holder.brand_name.setText(brandListBean.getName());
-        holder.brand_floor_price.setText(brandListBean.getFloor_price()+"起");
-        Glide.with(holder.itemView.getContext()).load(brandListBean.getNew_pic_url()).into(holder.brand_img);
+        viewHolder.brand_name.setText(brandListBean.getName());
+        viewHolder.brand_floor_price.setText(brandListBean.getFloor_price()+"起");
+        Glide.with(holder.itemView.getContext()).load(brandListBean.getNew_pic_url()).into(viewHolder.brand_img);
     }
 
     @Override

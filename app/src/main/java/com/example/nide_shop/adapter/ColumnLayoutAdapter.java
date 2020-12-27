@@ -1,5 +1,6 @@
 package com.example.nide_shop.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,15 +22,13 @@ import java.util.List;
 
 public class ColumnLayoutAdapter extends DelegateAdapter.Adapter<ColumnLayoutAdapter.ViewHolder> {
     private ColumnLayoutHelper ColumnLayoutHelper;
-    private List<HomeBean.DataBean.ChannelBean> channelBeans=new ArrayList<>();
+    private Context context;
+    private List<HomeBean.DataBean.ChannelBean> channelBeans;
 
-    public ColumnLayoutAdapter(ColumnLayoutHelper columnLayoutHelper) {
+    public ColumnLayoutAdapter(ColumnLayoutHelper columnLayoutHelper, Context context, List<HomeBean.DataBean.ChannelBean> channelBeans) {
         ColumnLayoutHelper = columnLayoutHelper;
-    }
-    public void getColumnChannel(List<HomeBean.DataBean.ChannelBean> list){
-        list.addAll(channelBeans);
-        notifyDataSetChanged();
-
+        this.context = context;
+        this.channelBeans = channelBeans;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class ColumnLayoutAdapter extends DelegateAdapter.Adapter<ColumnLayoutAda
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_channel, parent, false);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_channel, parent, false);
         ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;
     }
@@ -48,7 +47,7 @@ public class ColumnLayoutAdapter extends DelegateAdapter.Adapter<ColumnLayoutAda
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HomeBean.DataBean.ChannelBean channelBean = channelBeans.get(position);
-        Glide.with(holder.itemView.getContext()).load(channelBean.getIcon_url()).into(holder.channel_img);
+        Glide.with(context).load(channelBean.getIcon_url()).into(holder.channel_img);
         holder.channel_name.setText(channelBean.getName());
     }
 

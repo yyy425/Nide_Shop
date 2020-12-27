@@ -24,16 +24,14 @@ import java.util.List;
 
 public class BannerAdapter extends DelegateAdapter.Adapter<BannerAdapter.ViewHolder> {
 
-    private List<HomeBean.DataBean.BannerBean> banner=new ArrayList<>();
+    private List<HomeBean.DataBean.BannerBean> banner;
+    private Context context;
     private LinearLayoutHelper LinearLayoutHelper;
 
-    public BannerAdapter(LinearLayoutHelper linearLayoutHelper) {
-        this.LinearLayoutHelper=linearLayoutHelper;
-    }
-
-    public void getBannerData(List<HomeBean.DataBean.BannerBean> banner){
-        banner.addAll(banner);
-        notifyDataSetChanged();;
+    public BannerAdapter(List<HomeBean.DataBean.BannerBean> banner, Context context, com.alibaba.android.vlayout.layout.LinearLayoutHelper linearLayoutHelper) {
+        this.banner = banner;
+        this.context = context;
+        LinearLayoutHelper = linearLayoutHelper;
     }
 
     @Override
@@ -63,7 +61,7 @@ public class BannerAdapter extends DelegateAdapter.Adapter<BannerAdapter.ViewHol
 
     @Override
     public int getItemCount() {
-        return banner.size();
+        return 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="140dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <ImageView
-        android:layout_width="220dp"
+        android:scaleType="fitXY"
+        android:layout_width="match_parent"
         android:id="@+id/brand_img"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_height="170dp"/>
+        android:layout_height="match_parent"/>
     <TextView
         android:text="1111"
         android:layout_width="wrap_content"
         android:id="@+id/brand_name"
-        android:textSize="10sp"
+        android:textSize="16sp"
+        android:layout_margin="8dp"
         android:textColor="#000000"
         app:layout_constraintTop_toTopOf="@id/brand_img"
         app:layout_constraintLeft_toLeftOf="@id/brand_img"
@@ -24,7 +26,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:id="@+id/brand_floor_price"
-        android:textSize="10sp"
+        android:textSize="13sp"
+        android:layout_marginLeft="12dp"
         app:layout_constraintLeft_toLeftOf="@id/brand_img"
         app:layout_constraintTop_toBottomOf="@id/brand_name"
         android:layout_height="wrap_content"/>
