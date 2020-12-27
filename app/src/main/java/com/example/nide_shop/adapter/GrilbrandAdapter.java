@@ -19,17 +19,17 @@ import com.example.nide_shop.bean.HomeBean;
 import java.util.List;
 
 public class GrilbrandAdapter extends DelegateAdapter.Adapter {
-    private GridLayoutHelper GridLayoutHelper;
     private List<HomeBean.DataBean.BrandListBean> brandListBeans;
+    private LayoutHelper LayoutHelper;
 
-    public GrilbrandAdapter(GridLayoutHelper gridLayoutHelper, List<HomeBean.DataBean.BrandListBean> brandListBeans) {
-        GridLayoutHelper = gridLayoutHelper;
+    public GrilbrandAdapter(List<HomeBean.DataBean.BrandListBean> brandListBeans, com.alibaba.android.vlayout.LayoutHelper layoutHelper) {
         this.brandListBeans = brandListBeans;
+        LayoutHelper = layoutHelper;
     }
 
     @Override
     public LayoutHelper onCreateLayoutHelper() {
-        return GridLayoutHelper;
+        return LayoutHelper;
     }
 
     @NonNull

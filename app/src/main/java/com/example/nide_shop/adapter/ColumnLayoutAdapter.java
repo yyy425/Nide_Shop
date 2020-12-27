@@ -12,48 +12,51 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.layout.ColumnLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.nide_shop.R;
 import com.example.nide_shop.bean.HomeBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ColumnLayoutAdapter extends DelegateAdapter.Adapter<ColumnLayoutAdapter.ViewHolder> {
-    private ColumnLayoutHelper ColumnLayoutHelper;
+public class ColumnLayoutAdapter extends DelegateAdapter.Adapter {
     private Context context;
     private List<HomeBean.DataBean.ChannelBean> channelBeans;
+    private LayoutHelper LayoutHelper;
 
-    public ColumnLayoutAdapter(ColumnLayoutHelper columnLayoutHelper, Context context, List<HomeBean.DataBean.ChannelBean> channelBeans) {
-        ColumnLayoutHelper = columnLayoutHelper;
+    public ColumnLayoutAdapter(Context context, List<HomeBean.DataBean.ChannelBean> channelBeans, LayoutHelper layoutHelper) {
         this.context = context;
         this.channelBeans = channelBeans;
+        LayoutHelper = layoutHelper;
     }
 
     @Override
     public LayoutHelper onCreateLayoutHelper() {
-        return ColumnLayoutHelper;
+        return LayoutHelper;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View inflate = LayoutInflater.from(context).inflate(R.layout.layout_channel, parent, false);
         ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ViewHolder viewHolder= (ViewHolder) holder;
         HomeBean.DataBean.ChannelBean channelBean = channelBeans.get(position);
-        Glide.with(context).load(channelBean.getIcon_url()).into(holder.channel_img);
-        holder.channel_name.setText(channelBean.getName());
+        Glide.with(context).load(channelBean.getIcon_url()).into(viewHolder.channel_img);
+        viewHolder.channel_name.setText(channelBean.getName());
     }
 
     @Override
     public int getItemCount() {
-        return channelBeans.size();
+       if (channelBeans.size()>0){
+           return channelBeans.size();
+       }else {
+           return 0;
+       }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -12,37 +12,35 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.nide_shop.R;
 import com.example.nide_shop.bean.HomeBean;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BannerAdapter extends DelegateAdapter.Adapter<BannerAdapter.ViewHolder> {
 
     private List<HomeBean.DataBean.BannerBean> banner;
     private Context context;
-    private LinearLayoutHelper LinearLayoutHelper;
+    private LayoutHelper LayoutHelper;
 
-    public BannerAdapter(List<HomeBean.DataBean.BannerBean> banner, Context context, com.alibaba.android.vlayout.layout.LinearLayoutHelper linearLayoutHelper) {
+    public BannerAdapter(List<HomeBean.DataBean.BannerBean> banner, Context context, com.alibaba.android.vlayout.LayoutHelper layoutHelper) {
         this.banner = banner;
         this.context = context;
-        LinearLayoutHelper = linearLayoutHelper;
+        LayoutHelper = layoutHelper;
     }
 
     @Override
     public LayoutHelper onCreateLayoutHelper() {
-        return LinearLayoutHelper;
+        return LayoutHelper;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_banner, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_banner, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -61,7 +59,11 @@ public class BannerAdapter extends DelegateAdapter.Adapter<BannerAdapter.ViewHol
 
     @Override
     public int getItemCount() {
-        return 1;
+        if (banner.size()>0){
+            return 1;
+        }else {
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:layout_marginLeft="7dp"
+        android:id="@+id/interval_hot"
+        android:layout_marginRight="7dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#43B3B1B1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/hotgood_img"
+        android:layout_width="200dp"
+        android:layout_height="170dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/interval_hot" />
+
+    <TextView
+        android:id="@+id/hotgood_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/hotgood_img"
+        app:layout_constraintTop_toTopOf="@id/hotgood_img" />
+
+    <TextView
+        android:id="@+id/hotgood_goods_brief"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="测试内容"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toLeftOf="@id/hotgood_name"
+        app:layout_constraintTop_toBottomOf="@id/hotgood_name" />
+
+    <TextView
+        android:id="@+id/hotgood_retail_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="￥"
+        android:textSize="12dp"
+        android:textColor="#FF0000"
+        app:layout_constraintLeft_toLeftOf="@id/hotgood_goods_brief"
+        app:layout_constraintTop_toBottomOf="@id/hotgood_goods_brief" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

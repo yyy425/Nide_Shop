@@ -17,17 +17,17 @@ import com.example.nide_shop.R;
 public class TitleAdapter extends DelegateAdapter.Adapter{
     private String name;
     private Context context;
-    private SingleLayoutHelper SingleLayoutHelper;
+    private LayoutHelper LayoutHelper;
 
-    public TitleAdapter(SingleLayoutHelper singleLayoutHelper, String name, Context context) {
-        SingleLayoutHelper=singleLayoutHelper;
+    public TitleAdapter(String name, Context context, LayoutHelper layoutHelper) {
         this.name = name;
         this.context = context;
+        LayoutHelper = layoutHelper;
     }
 
     @Override
     public LayoutHelper onCreateLayoutHelper() {
-        return SingleLayoutHelper;
+        return LayoutHelper;
     }
 
     @NonNull
