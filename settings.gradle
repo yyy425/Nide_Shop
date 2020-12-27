@@ -1,0 +1,3 @@
+include ':myplibrary'
+include ':app'
+rootProject.name = "Nide_Shop"
