@@ -11,23 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.nide_shop.R;
 import com.example.nide_shop.bean.HomeBean;
 
 import java.util.ArrayList;
 
-public class TitleAdapter extends DelegateAdapter.Adapter{
-    private String name;
-    private Context context;
-    private ArrayList<HomeBean.DataBean.ChannelBean> channelBeans;
+public class FiveAdapter extends DelegateAdapter.Adapter<FiveAdapter.ViewHolder> {
+    protected Context context;
     private LayoutHelper LayoutHelper;
+    private ArrayList<HomeBean.DataBean.BrandListBean> brandListBeans;
 
-    public TitleAdapter(String name, Context context, ArrayList<HomeBean.DataBean.ChannelBean> channelBeans, LayoutHelper layoutHelper) {
-        this.name = name;
+    public FiveAdapter(Context context, com.alibaba.android.vlayout.LayoutHelper layoutHelper, ArrayList<HomeBean.DataBean.BrandListBean> brandListBeans) {
         this.context = context;
-        this.channelBeans = channelBeans;
         LayoutHelper = layoutHelper;
+        this.brandListBeans = brandListBeans;
     }
 
     @Override
@@ -38,30 +35,32 @@ public class TitleAdapter extends DelegateAdapter.Adapter{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_title, parent, false);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_five, parent, false);
         ViewHolder viewHolder = new ViewHolder(inflate);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder= (ViewHolder) holder;
-        viewHolder.title_name.setText(name);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        ViewHolder viewHolder =  holder;
+        holder.title_name.setText("周一周四·新品首发");
     }
+
     @Override
     public int getItemCount() {
-       if (channelBeans.size()>0){
-           return 1;
-       }else {
-           return 0;
-       }
+        if (brandListBeans.size()>0){
+            return 1;
+        }else {
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView title_name;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title_name=itemView.findViewById(R.id.title_name);
+            title_name = itemView.findViewById(R.id.title_name);
         }
     }
 }

@@ -16,7 +16,7 @@ import com.example.nide_shop.bean.HomeBean;
 
 import java.util.ArrayList;
 
-public class TopiclistAdapter  extends RecyclerView.Adapter<TopiclistAdapter.ViewHolder> {
+public class TopiclistAdapter extends RecyclerView.Adapter<TopiclistAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<HomeBean.DataBean.TopicListBean> topicListBeans;
@@ -46,7 +46,11 @@ public class TopiclistAdapter  extends RecyclerView.Adapter<TopiclistAdapter.Vie
 
     @Override
     public int getItemCount() {
-        return topicListBeans.size();
+        if (topicListBeans.size() > 0) {
+            return topicListBeans.size();
+        } else {
+            return 0;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,12 +58,13 @@ public class TopiclistAdapter  extends RecyclerView.Adapter<TopiclistAdapter.Vie
         private TextView title;
         private TextView price;
         private TextView subtitle;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            img=itemView.findViewById(R.id.topic_img);
-            title=itemView.findViewById(R.id.topic_title);
-            price=itemView.findViewById(R.id.topic_price_info);
-            subtitle=itemView.findViewById(R.id.topic_subtitle);
+            img = itemView.findViewById(R.id.topic_img);
+            title = itemView.findViewById(R.id.topic_title);
+            price = itemView.findViewById(R.id.topic_price_info);
+            subtitle = itemView.findViewById(R.id.topic_subtitle);
         }
     }
 }

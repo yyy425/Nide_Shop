@@ -38,64 +38,36 @@ public class TopicAdapter extends DelegateAdapter.Adapter<TopicAdapter.ViewHolde
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType==4){
-            return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.layout_topic,parent,false));
-        }
-        return null;
+        View inflate = LayoutInflater.from(context).inflate(R.layout.layout_topic, parent, false);
+        ViewHolder viewHolder = new ViewHolder(inflate);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-        if (holder.itemView instanceof  RecyclerView){
-            RecyclerView recyclerView = (RecyclerView) holder.itemView;
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            recyclerView.setLayoutManager(linearLayoutManager);
+            holder.recyclerView.setLayoutManager(linearLayoutManager);
             topiclistAdapter = new TopiclistAdapter(context, topicListBeans);
-            recyclerView.setAdapter(topiclistAdapter);
-        }
+            holder.recyclerView.setAdapter(topiclistAdapter);
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+       if (topicListBeans.size()>0){
+           return 1;
+       }else {
+           return 0;
+       }
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return 4;
-    }
 
-    @Override
-    public void onViewDetachedFromWindow(@NonNull ViewHolder holder) {
-        super.onViewDetachedFromWindow(holder);
-        if (holder.itemView instanceof RecyclerView){
-            RecyclerView recyclerView = ((RecyclerView) holder.itemView);
-            LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            position = manager.findFirstVisibleItemPosition();
-            View view = manager.findViewByPosition(position);
-            ViewGroup.MarginLayoutParams lp =
-                    (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-            if (view != null) {
-                xOffset = view.getLeft() - lp.leftMargin; //如果你设置了margin则减去
-            }
-        }
-    }
-
-    @Override
-    public void onViewAttachedToWindow(@NonNull ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        if (holder.itemView instanceof RecyclerView){
-            RecyclerView recyclerView = ((RecyclerView) holder.itemView);
-            LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
-            manager.scrollToPositionWithOffset(position, xOffset);
-        }
-    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private RecyclerView recyclerView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            recyclerView=itemView.findViewById(R.id.recycler);
         }
     }
 }

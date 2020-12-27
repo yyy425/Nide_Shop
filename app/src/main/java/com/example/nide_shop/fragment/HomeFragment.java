@@ -18,7 +18,9 @@ import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.myplibrary.base.BaseFragment;
 import com.example.nide_shop.R;
 import com.example.nide_shop.adapter.BannerAdapter;
+import com.example.nide_shop.adapter.CategoryAdapter;
 import com.example.nide_shop.adapter.ColumnLayoutAdapter;
+import com.example.nide_shop.adapter.FiveAdapter;
 import com.example.nide_shop.adapter.GridNewgoods;
 import com.example.nide_shop.adapter.GrilbrandAdapter;
 import com.example.nide_shop.adapter.HotgoodAdapter;
@@ -39,10 +41,10 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     private ColumnLayoutAdapter columnLayoutAdapter;
     private ArrayList<HomeBean.DataBean.BannerBean> bannerBeans;
     private ArrayList<HomeBean.DataBean.ChannelBean> channelBeans;
+    private TitleAdapter sevenAdapter;
     private TitleAdapter titleAdapter;
     private ArrayList<HomeBean.DataBean.BrandListBean> brandListBeans;
     private GrilbrandAdapter grilbrandAdapter;
-    private String name;
     private ArrayList<HomeBean.DataBean.NewGoodsListBean> newGoodsListBeans;
     private GridNewgoods gridNewgoods;
     private ArrayList<HomeBean.DataBean.HotGoodsListBean> hotGoodsListBeans;
@@ -50,6 +52,10 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     private ArrayList<HomeBean.DataBean.TopicListBean> topicListBeans;
     private TopicAdapter topicAdapter;
     private VirtualLayoutManager layoutManager;
+    private FiveAdapter fiveAdapter;
+    private TitleAdapter nineadapter;
+    private ArrayList<HomeBean.DataBean.CategoryListBean> categoryListBeans;
+    private CategoryAdapter categoryAdapter;
 
     @Override
     protected int getLayout() {
@@ -64,7 +70,7 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         layoutManager = new VirtualLayoutManager(getContext());
         RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
         recycler.setRecycledViewPool(recycledViewPool);
-        recycledViewPool.setMaxRecycledViews(0, 10);
+        recycledViewPool.setMaxRecycledViews(0, 20);
 
     }
 
@@ -78,28 +84,27 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     private void initHotgood() {
         LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
         hotGoodsListBeans = new ArrayList<>();
-        linearLayoutHelper.setDividerHeight(20);
+        linearLayoutHelper.setItemCount(3);
         hotgoodAdapter = new HotgoodAdapter(getActivity(), hotGoodsListBeans, linearLayoutHelper);
     }
 
     private void initNewgoods() {
         GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
-        gridLayoutHelper.setAutoExpand(false);
+        gridLayoutHelper.setAutoExpand(true);
         gridLayoutHelper.setWeights(new float[]{50, 50});
-        gridLayoutHelper.setSpanCount(2);
         newGoodsListBeans = new ArrayList<>();
         gridNewgoods = new GridNewgoods(getActivity(), newGoodsListBeans, gridLayoutHelper);
     }
 
     private void initBrand() {
         GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(2);
-        gridLayoutHelper.setAutoExpand(false);
+        gridLayoutHelper.setAutoExpand(true);
         gridLayoutHelper.setWeights(new float[]{50, 50});
         gridLayoutHelper.setVGap(10);
         gridLayoutHelper.setHGap(10);
         gridLayoutHelper.setSpanCount(2);
         brandListBeans = new ArrayList<>();
-        grilbrandAdapter = new GrilbrandAdapter(brandListBeans,gridLayoutHelper);
+        grilbrandAdapter = new GrilbrandAdapter(brandListBeans, gridLayoutHelper);
     }
 
     private void initBanner() {
@@ -114,7 +119,7 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         columnLayoutHelper.setWeights(new float[]{20, 20, 20, 20, 20});// 设置该行每个Item占该行总宽度的比例
         // 同上面Weigths属性讲解
 
-        columnLayoutAdapter = new ColumnLayoutAdapter(getActivity(),channelBeans,columnLayoutHelper);
+        columnLayoutAdapter = new ColumnLayoutAdapter(getActivity(), channelBeans, columnLayoutHelper);
     }
 
     @Override
@@ -128,16 +133,42 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
 
         initBanner();
         initChannel();
-    //    initTitle();
+        initTitle();
         initBrand();
+        initFive();
         initNewgoods();
+        initServen();
         initHotgood();
         initTopic();
+        initNine();
+        initCategory();
 
 
         addAdapter();
         homePresenterIml.getHome();
 
+    }
+
+    private void initCategory() {
+        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        categoryListBeans = new ArrayList<>();
+        categoryAdapter = new CategoryAdapter(getActivity(), categoryListBeans, linearLayoutHelper);
+    }
+
+    private void initNine() {
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        singleLayoutHelper.setAspectRatio(6);
+        singleLayoutHelper.setMarginTop(6);
+        String name="专题精选";
+        nineadapter = new TitleAdapter(name, getActivity(), channelBeans, singleLayoutHelper);
+    }
+
+    private void initFive() {
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        singleLayoutHelper.setAspectRatio(6);
+        fiveAdapter = new FiveAdapter(getActivity(), singleLayoutHelper, brandListBeans);
     }
 
     private void addAdapter() {
@@ -146,11 +177,14 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
 
         delegateAdapter.addAdapter(bannerAdapter);
         delegateAdapter.addAdapter(columnLayoutAdapter);
-//        delegateAdapter.addAdapter(titleAdapter);
+        delegateAdapter.addAdapter(titleAdapter);
         delegateAdapter.addAdapter(grilbrandAdapter);
+        delegateAdapter.addAdapter(fiveAdapter);
         delegateAdapter.addAdapter(gridNewgoods);
+        delegateAdapter.addAdapter(sevenAdapter);
         delegateAdapter.addAdapter(hotgoodAdapter);
         delegateAdapter.addAdapter(topicAdapter);
+        delegateAdapter.addAdapter(nineadapter);
 
 
         recycler.setLayoutManager(layoutManager);
@@ -168,27 +202,48 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
             channelBeans.addAll(channel);
             columnLayoutAdapter.notifyDataSetChanged();
 
-//            titleAdapter.notifyDataSetChanged();
+            titleAdapter.notifyDataSetChanged();
 
             List<HomeBean.DataBean.BrandListBean> brandList = homeBean.getData().getBrandList();
             brandListBeans.addAll(brandList);
             grilbrandAdapter.notifyDataSetChanged();
 
 
+            fiveAdapter.notifyDataSetChanged();
+
             List<HomeBean.DataBean.NewGoodsListBean> newGoodsList = homeBean.getData().getNewGoodsList();
             newGoodsListBeans.addAll(newGoodsList);
             gridNewgoods.notifyDataSetChanged();
-            if (hotGoodsListBeans.size()>0){
+
+            sevenAdapter.notifyDataSetChanged();
+
+
+            if (newGoodsListBeans.size() > 0) {
                 List<HomeBean.DataBean.HotGoodsListBean> hotGoodsList = homeBean.getData().getHotGoodsList();
                 hotGoodsListBeans.addAll(hotGoodsList);
                 hotgoodAdapter.notifyDataSetChanged();
             }
+            nineadapter.notifyDataSetChanged();
 
             List<HomeBean.DataBean.TopicListBean> topicList = homeBean.getData().getTopicList();
             topicListBeans.addAll(topicList);
             topicAdapter.notifyDataSetChanged();
+
+            List<HomeBean.DataBean.CategoryListBean> categoryList = homeBean.getData().getCategoryList();
+            categoryListBeans.addAll(categoryList);
+            categoryAdapter.notifyDataSetChanged();
         }
 
+    }
+
+    private void initServen() {        //人气推荐
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        singleLayoutHelper.setBgColor(Color.WHITE);
+        singleLayoutHelper.setAspectRatio(6);
+        singleLayoutHelper.setMarginTop(4);
+        String name = "人气推荐";
+        sevenAdapter = new TitleAdapter(name, getActivity(), channelBeans, singleLayoutHelper);
     }
 
     private void initTitle() {
@@ -197,8 +252,8 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         singleLayoutHelper.setItemCount(1);
         singleLayoutHelper.setAspectRatio(6);
         singleLayoutHelper.setMarginTop(6);
-         String name="品牌制造商直供";
-        titleAdapter = new TitleAdapter(name,getActivity(),singleLayoutHelper);
+        String name = "品牌制造商直供";
+        titleAdapter = new TitleAdapter(name, getActivity(), channelBeans, singleLayoutHelper);
     }
 
     @Override
