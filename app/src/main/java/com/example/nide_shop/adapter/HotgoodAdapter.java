@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.nide_shop.R;
 import com.example.nide_shop.bean.HomeBean;
@@ -49,7 +48,7 @@ public class HotgoodAdapter extends DelegateAdapter.Adapter<HotgoodAdapter.ViewH
         Glide.with(context).load(hotGoodsListBean.getList_pic_url()).into(holder.img);
         holder.name.setText(hotGoodsListBean.getName());
         holder.brief.setText(hotGoodsListBean.getGoods_brief());
-        holder.price.setText(hotGoodsListBean.getRetail_price());
+        holder.price.setText(hotGoodsListBean.getRetail_price()+"");
 
     }
 

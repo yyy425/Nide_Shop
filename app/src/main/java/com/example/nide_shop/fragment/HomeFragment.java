@@ -66,19 +66,14 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     protected void initView(View view) {
 
         recycler = (RecyclerView) view.findViewById(R.id.recycler);
-
-        layoutManager = new VirtualLayoutManager(getContext());
-        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
-        recycler.setRecycledViewPool(recycledViewPool);
-        recycledViewPool.setMaxRecycledViews(0, 20);
-
     }
 
     private void initTopic() {
         topicListBeans = new ArrayList<>();
-        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
-        topicAdapter = new TopicAdapter(getActivity(), topicListBeans, linearLayoutHelper);
-        linearLayoutHelper.setPaddingBottom(40);
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        topicAdapter = new TopicAdapter(getActivity(), topicListBeans, singleLayoutHelper);
+        singleLayoutHelper.setPaddingBottom(40);
     }
 
     private void initHotgood() {
@@ -108,9 +103,10 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     }
 
     private void initBanner() {
-        LinearLayoutHelper linearLayoutHelper = new LinearLayoutHelper();
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
         bannerBeans = new ArrayList<>();
-        bannerAdapter = new BannerAdapter(bannerBeans, getActivity(), linearLayoutHelper);
+        singleLayoutHelper.setItemCount(1);
+        bannerAdapter = new BannerAdapter(bannerBeans, getActivity(), singleLayoutHelper);
     }
 
     private void initChannel() {
@@ -131,6 +127,11 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
     protected void initData() {
         homePresenterIml = new HomePresenterIml(this);
 
+        layoutManager = new VirtualLayoutManager(getActivity());
+        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+        recycler.setRecycledViewPool(recycledViewPool);
+        recycledViewPool.setMaxRecycledViews(0,11);
+        recycler.setLayoutManager(layoutManager);
 
         initBanner();
         initChannel();
@@ -143,7 +144,7 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         initNine();
         initTopic();
         initCategory();
-        
+
         addAdapter();
         homePresenterIml.getHome();
 
@@ -160,7 +161,7 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         singleLayoutHelper.setItemCount(1);
         singleLayoutHelper.setAspectRatio(6);
         singleLayoutHelper.setMarginTop(6);
-        String name="专题精选";
+        String name = "专题精选";
         nineadapter = new TitleAdapter(name, getActivity(), channelBeans, singleLayoutHelper);
     }
 
@@ -185,6 +186,7 @@ public class HomeFragment extends BaseFragment<HomePresenterIml> implements Home
         delegateAdapter.addAdapter(hotgoodAdapter);
         delegateAdapter.addAdapter(nineadapter);
         delegateAdapter.addAdapter(topicAdapter);
+        delegateAdapter.addAdapter(categoryAdapter);
 
 
         recycler.setLayoutManager(layoutManager);
